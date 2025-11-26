@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/admin")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AdminUserController {
+    
 
     @Autowired private AdminUserService service;
     @Autowired private RoleRepository roleRepository;

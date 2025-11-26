@@ -3,6 +3,7 @@ package Salon.SalonManagementSystem.service;
 import Salon.SalonManagementSystem.model.Users;
 import Salon.SalonManagementSystem.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,17 +12,27 @@ public class UserService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public Users authenticate(String username, String password, String jobRole) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-        Users user = usersRepository.findByUsername(username);
-        if (user == null) return null;
-
-        boolean passwordMatch = user.getPassword().equals(password); // plain-text for now
-        boolean roleMatch = user.getRole().getRoleName().equalsIgnoreCase(jobRole);
-
-        if (passwordMatch && roleMatch) {
-            return user;
+    public Users authenticate(String username, String rawPassword, String roleName) {
+        Users u = usersRepository.findByUsername(username);
+        if (u == null) {
+            System.out.println("User not found: " + username);
+            return null;
         }
-        return null;
+
+        boolean ok = passwordEncoder.matches(rawPassword, u.getPassword());
+        System.out.println("Password match for " + username + " = " + ok);
+        if (!ok) return null;
+
+        System.out.println("DB role = " + u.getRole().getRoleName() + ", requested = " + roleName);
+        if (u.getRole() == null || !u.getRole().getRoleName().equals(roleName)) {
+            return null;
+        }
+
+        return u;
     }
+
 }
+
