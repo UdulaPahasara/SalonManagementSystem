@@ -22,6 +22,10 @@ public class Users {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @ManyToOne
+    @JoinColumn(name="branch_id")
+    private Branch branch;
+
     // getters and setters
 
     public int getId() { return id; }
@@ -43,4 +47,12 @@ public class Users {
     public Role getRole() { return role; }
 
     public void setRole(Role role) { this.role = role; }
+
+
+    public void setBranch(Branch branch) {
+    }
+
+    public Branch getBranch() {
+        return null;
+    }
 }

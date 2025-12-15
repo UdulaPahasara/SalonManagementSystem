@@ -41,4 +41,8 @@ public class CreateUserRequest {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
+
+    public Integer getBranchId() {
+        return null;
+    }
 }

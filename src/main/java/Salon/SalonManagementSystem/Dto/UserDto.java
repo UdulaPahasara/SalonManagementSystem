@@ -6,8 +6,9 @@ public class UserDto {
     private String fullName;
     private Integer roleId;
     private String roleName;
+    private Integer branchId;
+    private String branchName;
 
-    // getters & setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getUsername() { return username; }
@@ -18,4 +19,20 @@ public class UserDto {
     public void setRoleId(Integer roleId) { this.roleId = roleId; }
     public String getRoleName() { return roleName; }
     public void setRoleName(String roleName) { this.roleName = roleName; }
+
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
 }
