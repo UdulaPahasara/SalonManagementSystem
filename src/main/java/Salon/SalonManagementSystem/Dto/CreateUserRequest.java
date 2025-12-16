@@ -5,6 +5,7 @@ public class CreateUserRequest {
     private String password;
     private String fullName;
     private Integer roleId;
+    private  Integer branchId;
 
 
     // getters/setters
@@ -43,6 +44,7 @@ public class CreateUserRequest {
     }
 
     public Integer getBranchId() {
-        return null;
+        return branchId;
     }
+    public void setBranchId(Integer branchId) { this.branchId = branchId; }
 }

@@ -84,13 +84,21 @@ public class AdminUserService {
         return true;
     }
 
+    //assign branch id to role
+    public List<UserDto> getUsersByBranch(Integer branchId) {
+        return usersRepository.findByBranchId(branchId)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
     // helper DTO converter
     public UserDto toDto(Users u) {
         UserDto dto = new UserDto();
         dto.setId(u.getId());
         dto.setUsername(u.getUsername());
         dto.setFullName(u.getFullName());
-        if (u.getRole() != null) {
+        if (u.getRole() != null)    {
             dto.setRoleId(u.getRole().getId());
             dto.setRoleName(u.getRole().getRoleName());
         }

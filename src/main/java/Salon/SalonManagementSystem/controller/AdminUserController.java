@@ -56,4 +56,10 @@ public class AdminUserController {
     public List<Role> allRoles() {
         return roleRepository.findAll();
     }
+
+    // BRANCH-SPECIFIC USERS (for Branch Managers)
+    @GetMapping("/branch/{branchId}/users")
+    public List<UserDto> getBranchUsers(@PathVariable Integer branchId) {
+        return service.getUsersByBranch(branchId);
+    }
 }

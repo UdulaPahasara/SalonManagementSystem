@@ -50,9 +50,10 @@ public class Users {
 
 
     public void setBranch(Branch branch) {
+        this.branch=branch;
     }
 
     public Branch getBranch() {
-        return null;
+        return branch;
     }
 }
