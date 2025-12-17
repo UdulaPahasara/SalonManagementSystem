@@ -1,5 +1,6 @@
 package Salon.SalonManagementSystem.controller;
 
+import Salon.SalonManagementSystem.Dto.StockRequestCreateDTO;
 import Salon.SalonManagementSystem.model.StockRequest;
 import Salon.SalonManagementSystem.service.StockRequestService;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,10 @@ public class StockRequestController {
     }
 
     @PostMapping
-    public StockRequest create(@RequestBody StockRequest request) {
-        return service.create(request);
+    public StockRequest create(@RequestBody StockRequestCreateDTO dto) {
+        return service.create(dto);
     }
+
 
     @PutMapping("/{id}/approve")
     public StockRequest approve(@PathVariable Integer id) {

@@ -1,6 +1,6 @@
 package Salon.SalonManagementSystem.controller;
 
-import Salon.SalonManagementSystem.model.BranchInventory;
+import Salon.SalonManagementSystem.Dto.InventoryViewDTO;
 import Salon.SalonManagementSystem.service.InventoryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class InventoryController {
     }
 
     @GetMapping("/product/{productId}")
-    public List<BranchInventory> byProduct(@PathVariable Integer productId) {
+    public List<InventoryViewDTO> byProduct(@PathVariable Integer productId) {
         return service.getByProduct(productId);
     }
 }
