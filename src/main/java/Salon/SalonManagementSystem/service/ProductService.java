@@ -31,4 +31,12 @@ public class ProductService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+
+    /**
+     * Get products filtered by Product Manager's assigned branches
+     */
+    public List<Product> getProductsByManager(Integer userId) {
+        return repo.findProductsByManagerBranches(userId);
+    }
 }

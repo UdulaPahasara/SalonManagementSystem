@@ -21,4 +21,14 @@ public class InventoryController {
     public List<InventoryViewDTO> byProduct(@PathVariable Integer productId) {
         return service.getByProduct(productId);
     }
+
+    /**
+     * Get inventory for a product filtered by Product Manager's assigned branches
+     */
+    @GetMapping("/product/{productId}/manager/{userId}")
+    public List<InventoryViewDTO> byProductAndManager(
+            @PathVariable Integer productId,
+            @PathVariable Integer userId) {
+        return service.getByProductAndManager(productId, userId);
+    }
 }

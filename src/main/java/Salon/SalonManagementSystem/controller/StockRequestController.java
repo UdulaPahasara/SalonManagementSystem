@@ -5,6 +5,8 @@ import Salon.SalonManagementSystem.model.StockRequest;
 import Salon.SalonManagementSystem.service.StockRequestService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/stock-requests")
 @CrossOrigin
@@ -15,6 +17,13 @@ public class StockRequestController {
     public StockRequestController(StockRequestService service) {
         this.service = service;
     }
+
+
+    @GetMapping("/branch/{branchId}")
+    public List<StockRequest> getByBranch(@PathVariable Integer branchId) {
+        return service.getByBranch(branchId);
+    }
+
 
     @PostMapping
     public StockRequest create(@RequestBody StockRequestCreateDTO dto) {

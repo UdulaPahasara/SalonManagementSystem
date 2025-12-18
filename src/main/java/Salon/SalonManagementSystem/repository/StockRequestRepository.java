@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface StockRequestRepository extends JpaRepository<StockRequest, Integer> {
 
-    List<StockRequest> findByBranch_Id(Integer branchId);
+    List<StockRequest> findByBranch_Id(Integer id);
 }

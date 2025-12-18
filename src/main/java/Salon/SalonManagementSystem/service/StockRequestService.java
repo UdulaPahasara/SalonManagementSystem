@@ -8,6 +8,8 @@ import Salon.SalonManagementSystem.repository.StockRequestRepository;
 import Salon.SalonManagementSystem.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StockRequestService {
 
@@ -40,6 +42,10 @@ public class StockRequestService {
 
         return repo.save(request);
     }
+    public List<StockRequest> getByBranch(Integer id) {
+        return repo.findByBranch_Id(id);
+    }
+
 
     public StockRequest approve(Integer id) {
         StockRequest request = repo.findById(id)
