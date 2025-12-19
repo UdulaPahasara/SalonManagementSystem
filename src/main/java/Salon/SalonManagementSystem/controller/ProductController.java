@@ -38,11 +38,13 @@ public class ProductController {
         service.delete(id);
     }
 
-    /**
-     * Get products filtered by Product Manager's assigned branches
-     */
+
+    // Get products filtered by Product Manager's assigned branches
     @GetMapping("/by-manager/{userId}")
     public List<Product> getByProductManager(@PathVariable Integer userId) {
         return service.getProductsByManager(userId);
     }
+
+
+
 }

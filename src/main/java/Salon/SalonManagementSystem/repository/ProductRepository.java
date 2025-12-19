@@ -16,4 +16,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             nativeQuery = true)
     List<Product> findProductsByManagerBranches(@Param("userId") Integer userId);
 
+
+
 }

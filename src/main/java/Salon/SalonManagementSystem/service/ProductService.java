@@ -39,4 +39,5 @@ public class ProductService {
     public List<Product> getProductsByManager(Integer userId) {
         return repo.findProductsByManagerBranches(userId);
     }
+
 }
