@@ -3,8 +3,7 @@ package Salon.SalonManagementSystem.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "branch_inventory",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"branch_id","product_id"}))
+@Table(name = "branch_inventory", uniqueConstraints = @UniqueConstraint(columnNames = { "branch_id", "product_id" }))
 public class BranchInventory {
 
     @Id
@@ -20,6 +19,10 @@ public class BranchInventory {
     private Product product;
 
     private Integer quantity;
+
+    // Default low stock limit
+    @Column(columnDefinition = "integer default 10")
+    private Integer lowStockLimit = 10;
 
     // getters & setters
 
@@ -54,4 +57,13 @@ public class BranchInventory {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    public Integer getLowStockLimit() {
+        return lowStockLimit;
+    }
+
+    public void setLowStockLimit(Integer lowStockLimit) {
+        this.lowStockLimit = lowStockLimit;
+    }
+
 }
