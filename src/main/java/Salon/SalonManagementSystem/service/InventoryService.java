@@ -36,6 +36,13 @@ public class InventoryService {
                 .toList();
     }
 
+    public List<InventoryViewDTO> getByBranch(Integer branchId) {
+        return repo.findInventoryByBranchId(branchId)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
     /**
      * Helper method to convert BranchInventory to DTO
      */
@@ -45,6 +52,12 @@ public class InventoryService {
         dto.setBranchId(i.getBranch().getId());
         dto.setBranchName(i.getBranch().getBranchName());
         dto.setQuantity(i.getQuantity());
+
+        if (i.getProduct() != null) {
+            dto.setProductId(i.getProduct().getProductId());
+            dto.setProductName(i.getProduct().getProductName());
+            dto.setUnitPrice(i.getProduct().getUnitPrice());
+        }
         return dto;
     }
 }

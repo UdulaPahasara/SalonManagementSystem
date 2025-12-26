@@ -6,6 +6,9 @@ public class InventoryViewDTO {
     private Integer branchId;
     private String branchName;
     private Integer quantity;
+    private Integer productId;
+    private String productName;
+    private java.math.BigDecimal unitPrice;
 
     public Integer getInventoryId() {
         return inventoryId;
@@ -37,5 +40,29 @@ public class InventoryViewDTO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public java.math.BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(java.math.BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

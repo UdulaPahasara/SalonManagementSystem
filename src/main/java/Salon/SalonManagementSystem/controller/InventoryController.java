@@ -31,4 +31,9 @@ public class InventoryController {
             @PathVariable Integer userId) {
         return service.getByProductAndManager(productId, userId);
     }
+
+    @GetMapping("/branch/{branchId}")
+    public List<InventoryViewDTO> byBranch(@PathVariable Integer branchId) {
+        return service.getByBranch(branchId);
+    }
 }
