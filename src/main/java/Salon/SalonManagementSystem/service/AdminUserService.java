@@ -15,22 +15,70 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class AdminUserService {
-    @Autowired private UsersRepository usersRepository;
-    @Autowired private BranchRepository branchRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Autowired private RoleRepository roleRepository;
-    @Autowired private PasswordEncoder passwordEncoder; // define bean in config
+@Service
+@Transactional
+public class AdminUserService {
+    @Autowired
+    private UsersRepository usersRepository;
+    @Autowired
+    private BranchRepository branchRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder; // define bean in config
 
     // list all users
     public List<UserDto> listAll() {
-        return usersRepository.findAll()
-                .stream()
-                .map(this::toDto)
-                .toList();
+        try {
+            return usersRepository.findAll()
+                    .stream()
+                    .map(this::toDto)
+                    .toList();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error!
+            throw e;
+        }
     }
 
+    // ... (other methods)
+
+    // helper DTO converter
+    public UserDto toDto(Users u) {
+        try {
+            UserDto dto = new UserDto();
+            dto.setId(u.getId());
+            dto.setUsername(u.getUsername());
+            dto.setFullName(u.getFullName());
+
+            if (u.getRole() != null) {
+                try {
+                    dto.setRoleId(u.getRole().getId());
+                    dto.setRoleName(u.getRole().getRoleName());
+                } catch (Exception e) {
+                    System.err.println("Error getting Role for user " + u.getId());
+                    e.printStackTrace();
+                }
+            }
+
+            if (u.getBranch() != null) {
+                try {
+                    dto.setBranchId(u.getBranch().getId());
+                    dto.setBranchName(u.getBranch().getBranchName());
+                } catch (Exception e) {
+                    System.err.println("Error getting Branch for user " + u.getId());
+                    e.printStackTrace();
+                }
+            }
+            return dto;
+        } catch (Exception e) {
+            System.err.println("Error converting user " + u.getId() + " to DTO");
+            e.printStackTrace();
+            return null; // or throw
+        }
+    }
 
     // find single user
     public UserDto findById(Integer id) {
@@ -59,7 +107,8 @@ public class AdminUserService {
     // update (doesn't change password unless provided)
     public UserDto update(Integer id, CreateUserRequest req) {
         Users u = usersRepository.findById(id).orElse(null);
-        if (u == null) return null;
+        if (u == null)
+            return null;
         u.setFullName(req.getFullName());
         u.setUsername(req.getUsername());
         if (req.getPassword() != null && !req.getPassword().isBlank()) {
@@ -79,12 +128,13 @@ public class AdminUserService {
 
     // delete
     public boolean delete(Integer id) {
-        if (!usersRepository.existsById(id)) return false;
+        if (!usersRepository.existsById(id))
+            return false;
         usersRepository.deleteById(id);
         return true;
     }
 
-    //assign branch id to role
+    // assign branch id to role
     public List<UserDto> getUsersByBranch(Integer branchId) {
         return usersRepository.findByBranchId(branchId)
                 .stream()
@@ -92,21 +142,12 @@ public class AdminUserService {
                 .collect(Collectors.toList());
     }
 
-    // helper DTO converter
-    public UserDto toDto(Users u) {
-        UserDto dto = new UserDto();
-        dto.setId(u.getId());
-        dto.setUsername(u.getUsername());
-        dto.setFullName(u.getFullName());
-        if (u.getRole() != null)    {
-            dto.setRoleId(u.getRole().getId());
-            dto.setRoleName(u.getRole().getRoleName());
-        }
-        if (u.getBranch() != null) {
-            dto.setBranchId(u.getBranch().getId());
-            dto.setBranchName(u.getBranch().getBranchName());
-        }
-        return dto;
+    public int cleanupServiceStaffUsers() {
+        List<String> rolesToDelete = List.of("Stylist", "Barber", "Therapist", "Service Staff");
+        List<Users> usersToDelete = usersRepository.findByRole_RoleNameIn(rolesToDelete);
+        int count = usersToDelete.size();
+        usersRepository.deleteAll(usersToDelete);
+        return count;
     }
 
 }
