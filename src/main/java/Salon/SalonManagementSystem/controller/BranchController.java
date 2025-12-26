@@ -31,5 +31,9 @@ public class BranchController {
         branchService.deleteBranch(id);
         return ResponseEntity.ok("Branch deleted");
     }
-}
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Branch> updateBranch(@PathVariable Integer id, @RequestBody Branch branch) {
+        return ResponseEntity.ok(branchService.updateBranch(id, branch));
+    }
+}

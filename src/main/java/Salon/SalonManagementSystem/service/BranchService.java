@@ -32,10 +32,20 @@ public class BranchService {
 
         if (usersCount > 0) {
             throw new RuntimeException(
-                    "Cannot delete branch. Users are assigned to this branch."
-            );
+                    "Cannot delete branch. Users are assigned to this branch.");
         }
 
         branchRepository.deleteById(id);
+    }
+
+    public Branch updateBranch(Integer id, Branch branchDetails) {
+        Branch branch = branchRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Branch not found with id: " + id));
+
+        branch.setBranchName(branchDetails.getBranchName());
+        branch.setAddress(branchDetails.getAddress());
+        branch.setPhone(branchDetails.getPhone());
+
+        return branchRepository.save(branch);
     }
 }
