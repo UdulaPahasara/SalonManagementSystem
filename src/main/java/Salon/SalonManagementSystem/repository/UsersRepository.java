@@ -12,7 +12,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 
     @Query("SELECT u FROM Users u WHERE u.branch.id = :branchId")
     List<Users> findByBranchId(@Param("branchId") Integer branchId);
+
     long countByBranchId(Integer branchId);
 
-
+    List<Users> findByRole_RoleNameIn(List<String> roleNames);
 }

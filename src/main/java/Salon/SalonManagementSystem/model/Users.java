@@ -23,37 +23,67 @@ public class Users {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name="branch_id")
+    @JoinColumn(name = "branch_id")
     private Branch branch;
+
+    @Column(columnDefinition = "double precision default 0.0")
+    private Double baseSalary;
 
     // getters and setters
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getFullName() { return fullName; }
+    public String getFullName() {
+        return fullName;
+    }
 
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-    public Role getRole() { return role; }
+    public Role getRole() {
+        return role;
+    }
 
-    public void setRole(Role role) { this.role = role; }
-
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public void setBranch(Branch branch) {
-        this.branch=branch;
+        this.branch = branch;
     }
 
     public Branch getBranch() {
         return branch;
+    }
+
+    public Double getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(Double baseSalary) {
+        this.baseSalary = baseSalary;
     }
 }
