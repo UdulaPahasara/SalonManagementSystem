@@ -18,18 +18,20 @@ public class StockRequestController {
         this.service = service;
     }
 
-
     @GetMapping("/branch/{branchId}")
     public List<StockRequest> getByBranch(@PathVariable Integer branchId) {
         return service.getByBranch(branchId);
     }
 
+    @GetMapping
+    public List<StockRequest> getAll() {
+        return service.getAll();
+    }
 
     @PostMapping
     public StockRequest create(@RequestBody StockRequestCreateDTO dto) {
         return service.create(dto);
     }
-
 
     @PutMapping("/{id}/approve")
     public StockRequest approve(@PathVariable Integer id) {
