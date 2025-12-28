@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/branches")
+@RequestMapping("/api/branches")// use plural word
 @CrossOrigin("http://localhost:3000")
 public class BranchController {
 
